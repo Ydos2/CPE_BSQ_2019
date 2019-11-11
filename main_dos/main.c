@@ -23,37 +23,34 @@ static int put_int_tab(char *tmp, unsigned int *ptr1,
 {
     static int line;
     unsigned int size_max;
-    unsigned int i;
+    unsigned int i = 1, z = 0;
 
-    i = 1;
     ((max->new)++ == 1) ? (line = 2) : (0);
     if ((first_car(tmp, ptr2, max, line)) != 0)
         return (84);
     size_max = max->size;
     while (tmp[i] != '\n') {
         ptr2[i] = 0;
-    if (tmp[i] == '.') {
-        ptr2[i] = minimum(ptr2[i - 1], ptr1[i - 1], ptr1[i]) + 1;
+        if (tmp[i] == '.') {
+            ptr2[i] = minimum(ptr2[i - 1], ptr1[i - 1], ptr1[i]) + 1;
+            z = 1;
+        } else if (tmp[i] != 'o')
+            return (84);
         if (ptr2[i] > size_max)
             size_max = save_max(max, i, line, ptr2[i]);
-    } else if (tmp[i] != 'o')
-        return (84);
-    ++i;
+        i++;
     }
-    ++line;
+    line++;
     return (0);
 }
 
 static int bsq(int fd, int nb_lines, int nb_cols, t_max *max)
 {
-    char *tmp;
-    unsigned int *ptr1;
-    unsigned int *ptr2;
+    char *tmp = (char *)malloc(sizeof(char) * (nb_cols + 2));
+    unsigned int *ptr1 = (int *)malloc(sizeof(int) * (nb_cols + 1));
+    unsigned int *ptr2 = (int *)malloc(sizeof(int) * (nb_cols + 1));
     unsigned int i = 0;
 
-    tmp = (char *)malloc(sizeof(char) * (nb_cols + 2));
-    ptr1 = (int *)malloc(sizeof(int) * (nb_cols + 1));
-    ptr2 = (int *)malloc(sizeof(int) * (nb_cols + 1));
     if (tmp == NULL || ptr1 == NULL || ptr2 == NULL)
         return (84);
     if (first_line(fd, ptr1, tmp, max) == 84)
@@ -73,11 +70,9 @@ static int bsq(int fd, int nb_lines, int nb_cols, t_max *max)
 
 static int prepare_bsq(char *file, int flag_c)
 {
-    int nb_lines;
-    int nb_cols;
+    int nb_lines, nb_cols, fd;
     t_max maximum;
     char tmp;
-    int fd;
 
     maximum.size = 0;
     maximum.new = 1;
