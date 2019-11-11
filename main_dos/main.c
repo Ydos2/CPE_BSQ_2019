@@ -27,7 +27,7 @@ static int put_int_tab(char *tmp, unsigned int *ptr1,
 
     i = 1;
     ((max->new)++ == 1) ? (line = 2) : (0);
-    if ((init_first_car(tmp, ptr2, max, line)) != 0)
+    if ((first_car(tmp, ptr2, max, line)) != 0)
         return (84);
     size_max = max->size;
     while (tmp[i] != '\n') {
@@ -56,7 +56,7 @@ static int bsq(int fd, int nb_lines, int nb_cols, t_max *max)
     ptr2 = (int *)malloc(sizeof(int) * (nb_cols + 1));
     if (tmp == NULL || ptr1 == NULL || ptr2 == NULL)
         return (84);
-    if (init_first_line(fd, ptr1, tmp, max) == 84)
+    if (first_line(fd, ptr1, tmp, max) == 84)
         return (84);
     while (++i < nb_lines) {
         if (read(fd, &tmp[0], nb_cols + 1) != nb_cols + 1)
@@ -93,7 +93,7 @@ static int prepare_bsq(char *file, int flag_c)
     }
     close(fd);
     if (flag_c == 0)
-        fd = disp_bsq(file, &maximum, nb_lines, nb_cols);
+        fd = display_bsq(file, &maximum, nb_lines, nb_cols);
     return ((fd == 84) ? (84) : (close(fd)));
 }
 

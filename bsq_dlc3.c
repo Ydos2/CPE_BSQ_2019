@@ -7,81 +7,52 @@
 
 #include "include/my.h"
 
-int	get_nb_lines(int *fd, char *file)
+int first_line(int fd, int *first, char *tmp, t_max *max)
 {
-    int i = 0;
-    char nb_lines[15];
+    int	i = 0;
+    int	size_max = max->size;
 
-    *fd = open(file, O_RDONLY);
-    while (read(*fd, &nb_lines[i], 1) > 0 && nb_lines[i] != '\n' && i < 15)
-        i++;
-    if (i == 14)
-        return (84);
-    nb_lines[i] = 0;
-    return (my_atoi(nb_lines));
-}
-
-int get_nb_cols(char *file)
-{
-    int fd;
-    char tmp;
-    int i = 0;
-
-    fd = open(file, O_RDONLY);
-    while (read(fd, &tmp, 1) > 0 && tmp != '\n');
-    while (read(fd, &tmp, 1) > 0 && tmp != '\n')
-        i++;
-    if ((close(fd)) == 84)
-        return (84);
-    return (i);
-}
-
-int go_first_line(char *file, int *fd)
-{
-    char tmp = 0;
-    int i = 0;
-
-    *fd = open(file, O_RDONLY);
-    while (read(*fd, &tmp, 1) > 0 && tmp != '\n');
-        tmp = 0;
-    while (read(*fd, &tmp, 1) > 0 && tmp != '\n')
-        i++;
-    if ((close(*fd)) == 84)
-        return (84);
-    *fd = open(file, O_RDONLY);
-    tmp = 0;
-    while (read(*fd, &tmp, 1) > 0 && tmp != '\n');
-    return (i);
-}
-
-int	get_option(int argc, char **argv)
-{
-    int i = 1;
-    int flag_c = 0;
-
-    while (i < argc) {
-        if (argv[i][0] == '-') {
-            if (argv[i][1] == 'c')
-                flag_c = 1;
-            else if (argv[i][1] == 'g')
-                return (gen_map(argc, argv));
-            else
-                return (84);
+    while (read(fd, &tmp[i], 1) > 0 && tmp[i] != '\n') {
+        first[i] = 0;
+        if (tmp[i] == '.') {
+            first[i] = 1;
+        if (size_max <= 0)
+            size_max = save_max(max, i, 1, 1);
         }
+        else if (tmp[i] != 'o')
+            return (84);
         i++;
     }
-    return (flag_c);
+    if (tmp[i] == 0)
+        return (84);
+    return (0);
 }
 
-int	nb_file(int argc, char **argv)
+int first_car(char *tmp, int *ptr2, t_max *max, int line)
 {
-    int i = 1;
-    int nb_files = 0;
+    ptr2[0] = 0;
+    if (tmp[0] == '.')
+        ptr2[0] = 1;
+    else if (tmp[0] != 'o' && tmp[0] != '\n')
+        return (84);
+    if (max->size <= 0 && ptr2[0] == 1)
+        max->size = save_max(max, 0, line, ptr2[0]);
+    return (0);
+}
 
-    while (i < argc) {
-        if (argv[i][0] != '-')
-            nb_files = nb_files + 1;
-            i++;
-    }
-    return (nb_files);
+void swap_ptr(unsigned int **ptr1, unsigned int **ptr2)
+{
+    unsigned int *swap;
+
+    swap = *ptr1;
+    *ptr1 = *ptr2;
+    *ptr2 = swap;
+}
+
+int save_max(t_max *max, int i, int line, int current)
+{
+    max->size = current;
+    max->x_max = i + 1;
+    max->y_max = line;
+    return (current);
 }

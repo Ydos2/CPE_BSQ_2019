@@ -73,12 +73,13 @@ static int prepare_bsq(char *file, int flag_c);
 void free_int(unsigned int **ptr1, unsigned int **ptr2, char **tmp);
 
 static void	print_line(char *tmp, t_max *max, int nb_cols);
-int	disp_bsq(char *file, t_max *max, int nb_lines, int nb_cols);
+int	display_bsq(char *file, t_max *max, int nb_lines, int nb_cols);
 
 static int get_rand(int y);
 static int print_it(int x, int y, int density);
 static int check_bad_car(char *str);
 int gen_map(int argc, char **argv);
+int scribe(int density, int y);
 
 int get_nb_lines(int *fd, char *file);
 int get_nb_cols(char *file);
@@ -86,8 +87,8 @@ int go_first_line(char *file, int *fd);
 int get_option(int argc, char **argv);
 int	nb_file(int argc, char **argv);
 
-int init_first_line(int fd, int *first, char *tmp, t_max *max);
-int init_first_car(char *tmp, int *ptr2, t_max *max, int line);
+int first_line(int fd, int *first, char *tmp, t_max *max);
+int first_car(char *tmp, int *ptr2, t_max *max, int line);
 void swap_ptr(unsigned int **ptr1, unsigned int **ptr2);
 int save_max(t_max *max, int i, int line, int current);
 #endif /* !MY_H_ */

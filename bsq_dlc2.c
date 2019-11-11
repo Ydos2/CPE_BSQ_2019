@@ -2,51 +2,76 @@
 ** EPITECH PROJECT, 2019
 ** bsq_dlc2
 ** File description:
-** disp_bsq
+** bsq_dlc2
 */
 
 #include "include/my.h"
 
-static void	print_line(char *tmp, t_max *max, int nb_cols)
+static int get_rand(int y)
 {
-    int i = 1;
-    write(1, &tmp[0], max->x_max - max->size);
-    while (i++ <= max->size)
-        write(1, "x", 1);
-    i = max->x_max;
-    write(1, &tmp[i], nb_cols - i);
+    int nb;
+    float nb2;
+
+    if (nb < 0)
+        nb = -nb;
+    nb = nb % 100;
+    nb2 = (float)nb / 100;
+    return (nb2 * y + 0.5);
 }
 
-int	disp_bsq(char *file, t_max *max, int nb_lines, int nb_cols)
+static int print_it(int x, int y, int density)
 {
-    char *tmp;
-    int fd, i = 1;
+    int z = 0;
 
-    nb_cols = go_first_line(file, &fd);
-    if (nb_cols == 84)
-        return (84);
-    tmp = (char *)malloc(sizeof(char) * (nb_cols + 1));
-    if (tmp == NULL)
-        return (84);
-    tmp[nb_cols++] = 0;
-    while (i <= nb_lines) {
-        if ((read(fd, tmp, nb_cols)) < 0)
+    for (int i = 0; i < y; i++) {
+        for (int j = 0; j < x; j++) {
+            z += scribe(density, y);
+        }
+        if (z > 0)
             return (84);
-        if (i++ <= max->y_max - max->size || i - 1 > max->y_max)
-            write(1, tmp, nb_cols);
-        else
-            print_line(tmp, max, nb_cols);
+    my_putchar('\n');
     }
-    free(tmp);
-    return (fd);
+    return (0);
 }
 
-void free_int(unsigned int **ptr1, unsigned int **ptr2, char **tmp)
+int scribe(int density, int y)
 {
-    if (*ptr1)
-        free(*ptr1);
-    if (*ptr2)
-        free(*ptr2);
-    if (*tmp)
-        free(*tmp);
+    int tmp;
+
+    tmp = get_rand(y) * 2;
+    if (tmp < 0)
+        return (84);
+    else if (tmp < density)
+        write(1, "o", 1);
+    else
+        write(1, ".", 1);
+}
+
+static int check_bad_car(char *str)
+{
+    for (int i = 0; str[i]; i++) {
+        if (!(str[i] >= '0' && str[i] <= '9'))
+            return (84);
+    }
+    return (0);
+}
+
+int gen_map(int argc, char **argv)
+{
+    int x;
+    int y;
+    int density;
+
+    if (argc != 5)
+        return (84);
+    if (check_bad_car(argv[2]) == 84 || check_bad_car(argv[3]) == 84
+        || check_bad_car(argv[4]) == 84)
+    return (84);
+    x = my_atoi(argv[2]);
+    y = my_atoi(argv[3]);
+    density = my_atoi(argv[4]);
+    my_put_nbr(y);
+    my_putchar('\n');
+    print_it(x, y, density);
+    return (84);
 }
