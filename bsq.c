@@ -21,7 +21,7 @@ static void	print_line(char *tmp, t_max *max, int nb_cols)
 int	display_bsq(char *file, t_max *max, int nb_lines, int nb_cols)
 {
     char *tmp;
-    int fd, i = 1;
+    int fd, i = 1, j;
 
     nb_cols = go_first_line(file, &fd);
     if (nb_cols == 84)
@@ -31,7 +31,8 @@ int	display_bsq(char *file, t_max *max, int nb_lines, int nb_cols)
         return (84);
     tmp[nb_cols++] = 0;
     while (i <= nb_lines) {
-        if ((read(fd, tmp, nb_cols)) < 0)
+        j = read(fd, tmp, nb_cols);
+        if (j < 0)
             return (84);
         if (i++ <= max->y_max - max->size || i - 1 > max->y_max)
             write(1, tmp, nb_cols);

@@ -16,8 +16,8 @@ int first_line(int fd, int *first, char *tmp, t_max *max)
         first[i] = 0;
         if (tmp[i] == '.') {
             first[i] = 1;
-        if (size_max <= 0)
-            size_max = save_max(max, i, 1, 1);
+            if (size_max <= 0)
+                size_max = save_max(max, i, 1, 1);
         }
         else if (tmp[i] != 'o')
             return (84);
