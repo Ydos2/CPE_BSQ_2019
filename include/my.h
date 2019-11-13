@@ -64,11 +64,11 @@ int my_atoi(char *str);
 int my_intlen(int nb);
 
 static int bsq(int fd, int nb_lines, int nb_cols, t_max *max);
-static int put_int_tab(char *tmp, unsigned int *ptr1,
+static int bsq_tab(char *tmp, unsigned int *ptr1,
                 unsigned int *ptr2, t_max *max);
 static inline int minimum(unsigned int a, unsigned int b,
                 unsigned int c);
-static int prepare_bsq(char *file, int flag_c);
+static int before_bsq(char *file, int flag_c);
 
 void free_int(unsigned int **ptr1, unsigned int **ptr2, char **tmp);
 

@@ -7,7 +7,7 @@
 
 #include "include/my.h"
 
-static void	print_line(char *tmp, t_max *max, int nb_cols)
+static void	display_line(char *tmp, t_max *max, int nb_cols)
 {
     int i = 1;
 
@@ -37,7 +37,7 @@ int	display_bsq(char *file, t_max *max, int nb_lines, int nb_cols)
         if (i++ <= max->y_max - max->size || i - 1 > max->y_max)
             write(1, tmp, nb_cols);
         else
-            print_line(tmp, max, nb_cols);
+            display_line(tmp, max, nb_cols);
     }
     free(tmp);
     return (fd);

@@ -65,8 +65,8 @@ int gen_map(int argc, char **argv)
     if (argc != 5)
         return (84);
     if (check_bad_car(argv[2]) == 84 || check_bad_car(argv[3]) == 84
-        || check_bad_car(argv[4]) == 84)
-    return (84);
+    || check_bad_car(argv[4]) == 84)
+        return (84);
     x = my_atoi(argv[2]);
     y = my_atoi(argv[3]);
     density = my_atoi(argv[4]);

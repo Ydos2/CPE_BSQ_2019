@@ -8,7 +8,7 @@
 #include "../include/my.h"
 
 static inline int minimum(unsigned int a, unsigned int b,
-                unsigned int c)
+    unsigned int c)
 {
     if (a <= b && a <= c)
         return (a);
@@ -18,8 +18,8 @@ static inline int minimum(unsigned int a, unsigned int b,
         return (c);
 }
 
-static int put_int_tab(char *tmp, unsigned int *ptr1,
-                unsigned int *ptr2, t_max *max)
+static int bsq_tab(char *tmp, unsigned int *ptr1,
+    unsigned int *ptr2, t_max *max)
 {
     static int line;
     unsigned int size_max, i = 1, z = 0, y = 0;
@@ -54,10 +54,11 @@ static int bsq(int fd, int nb_lines, int nb_cols, t_max *max)
     j = first_line(fd, ptr1, tmp, max);
     if (j == 84)
         return (84);
-    for (int z ; i < nb_lines; i++) {
-        if (read(fd, &tmp[0], nb_cols + 1) != nb_cols + 1)
+    for (int z, y; i < nb_lines; i++) {
+        y = read(fd, &tmp[0], nb_cols + 1);
+        if (y != nb_cols + 1)
             return (84);
-        z = put_int_tab(&tmp[0], ptr1, ptr2, max);
+        z = bsq_tab(&tmp[0], ptr1, ptr2, max);
         if (z == 84)
             return (84);
         swap_ptr(&ptr1, &ptr2);
@@ -68,7 +69,7 @@ static int bsq(int fd, int nb_lines, int nb_cols, t_max *max)
     return (0);
 }
 
-static int prepare_bsq(char *file, int flag_c)
+static int before_bsq(char *file, int flag_c)
 {
     int nb_lines, nb_cols, fd, bsq_i;
     t_max maximum;
@@ -107,7 +108,7 @@ int	main(int argc, char **argv)
     if (nb_files == 0)
         return (84);
     while (file_actual <= nb_files) {
-        j = prepare_bsq(argv[i++], flag_c);
+        j = before_bsq(argv[i++], flag_c);
         if (j == 84)
             return (84);
         if (file_actual++ < nb_files)
