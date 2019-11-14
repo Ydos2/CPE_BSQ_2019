@@ -48,12 +48,3 @@ int go_first_line(char *file, int *fd)
     while (read(*fd, &tmp, 1) > 0 && tmp != '\n');
     return (i);
 }
-
-int	nb_file(int argc, char **argv)
-{
-    int nb_files = 0;
-
-    for (int i = 0; i < argc; i++)
-        nb_files = nb_files + 1;
-    return (nb_files);
-}

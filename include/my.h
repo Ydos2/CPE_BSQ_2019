@@ -84,7 +84,6 @@ int scribe(int density, int y);
 int get_nb_lines(int *fd, char *file);
 int get_nb_cols(char *file);
 int go_first_line(char *file, int *fd);
-int	nb_file(int argc, char **argv);
 
 int first_line(int fd, int *first, char *tmp, t_max *max);
 int first_car(char *tmp, int *ptr2, t_max *max, int line);

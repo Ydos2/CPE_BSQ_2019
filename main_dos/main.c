@@ -98,21 +98,12 @@ int	main(int argc, char **argv)
 {
     int i = 1;
     int j;
-    int file_actual = 1;
-    int nb_files;
     int flag_c = 0;
 
     if (argc == 1)
         return (84);
-    nb_files = nb_file(argc, argv);
-    if (nb_files == 0)
+    j = before_bsq(argv[i++], flag_c);
+    if (j == 84)
         return (84);
-    while (file_actual <= nb_files) {
-        j = before_bsq(argv[i++], flag_c);
-        if (j == 84)
-            return (84);
-        if (file_actual++ < nb_files)
-            my_putstr("\n");
-    }
     return (0);
 }
