@@ -9,18 +9,19 @@
 
 int first_line(int fd, int *first, char *tmp, t_max *max)
 {
-    int	i = 0;
+    int	i = 0, j = 0;
     int	size_max = max->size;
 
     while (read(fd, &tmp[i], 1) > 0 && tmp[i] != '\n') {
         first[i] = 0;
         if (tmp[i] == '.') {
             first[i] = 1;
-            if (size_max <= 0)
-                size_max = save_max(max, i, 1, 1);
+            j++;
         }
         else if (tmp[i] != 'o')
             return (84);
+        if (size_max <= 0 && j == 1)
+            size_max = save_max(max, i, 1, 1);
         i++;
     }
     if (tmp[i] == 0)

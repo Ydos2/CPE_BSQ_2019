@@ -16,7 +16,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
-
 typedef struct s_max
 {
     int x_max;
@@ -24,7 +23,6 @@ typedef struct s_max
     int size;
     int new;
 }   t_max;
-
 void my_putchar(char c);
 int my_isneg(int nb);
 int my_put_nbr(int nb);

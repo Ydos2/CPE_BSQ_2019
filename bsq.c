@@ -31,8 +31,7 @@ int	display_bsq(char *file, t_max *max, int nb_lines, int nb_cols)
         return (84);
     tmp[nb_cols++] = 0;
     while (i <= nb_lines) {
-        j = read(fd, tmp, nb_cols);
-        if (j < 0)
+        if (read(fd, tmp, nb_cols) < 0)
             return (84);
         if (i++ <= max->y_max - max->size || i - 1 > max->y_max)
             write(1, tmp, nb_cols);
