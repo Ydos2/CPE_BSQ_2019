@@ -7,7 +7,7 @@
 
 #include "../include/my.h"
 
-static inline int minimum(unsigned int a, unsigned int b,
+static int minimum(unsigned int a, unsigned int b,
     unsigned int c)
 {
     if (a <= b && a <= c)
@@ -49,10 +49,9 @@ static int bsq(int fd, int nb_lines, int nb_cols, t_max *max)
     char *tmp = (char *)malloc(sizeof(char) * (nb_cols + 2));
     unsigned int *ptr1 = (int *)malloc(sizeof(int) * (nb_cols + 1));
     unsigned int *ptr2 = (int *)malloc(sizeof(int) * (nb_cols + 1));
-    unsigned int i = 1, j;
+    unsigned int i = 1;
 
-    j = first_line(fd, ptr1, tmp, max);
-    if (j == 84)
+    if ((first_line(fd, ptr1, tmp, max)) == 84)
         return (84);
     for (int z, y; i < nb_lines; i++) {
         y = read(fd, &tmp[0], nb_cols + 1);
@@ -97,7 +96,7 @@ static int before_bsq(char *file, int flag_c)
 int	main(int argc, char **argv)
 {
     int i = 1;
-    int j;
+    int j = 0;
     int flag_c = 0;
 
     if (argc == 1)

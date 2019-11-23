@@ -23,6 +23,7 @@ typedef struct s_max
     int size;
     int new;
 }   t_max;
+
 void my_putchar(char c);
 int my_isneg(int nb);
 int my_put_nbr(int nb);
@@ -69,7 +70,6 @@ static inline int minimum(unsigned int a, unsigned int b,
 static int before_bsq(char *file, int flag_c);
 
 void free_int(unsigned int **ptr1, unsigned int **ptr2, char **tmp);
-
 static void	print_line(char *tmp, t_max *max, int nb_cols);
 int	display_bsq(char *file, t_max *max, int nb_lines, int nb_cols);
 

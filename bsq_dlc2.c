@@ -24,9 +24,8 @@ static int print_it(int x, int y, int density)
     int z = 0;
 
     for (int i = 0; i < y; i++) {
-        for (int j = 0; j < x; j++) {
+        for (int j = 0; j < x; j++)
             z += scribe(density, y);
-        }
         if (z > 0)
             return (84);
     my_putchar('\n');
